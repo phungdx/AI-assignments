@@ -49,5 +49,5 @@ def myCosineSimilarityKernel(X1,X2):
     # X1=np.array(X1.reshape(1,-1))
     # X2=np.array(X2.reshape(1,-1))
     norm = np.linalg.norm(X1) * np.linalg.norm(X2)
-    return np.dot(X1, X2.T)/norm
+    return np.dot(X1, X2.T)
 
