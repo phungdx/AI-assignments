@@ -37,7 +37,7 @@ if __name__ == "__main__":
     # Put the result into a color plot
     Z = Z.reshape(xx.shape)
     plt.figure(1, figsize=(4, 3))
-    plt.pcolormesh(xx, yy, Z, cmap=plt.cm.Paired)
+    plt.pcolormesh(xx, yy, Z, cmap=plt.cm.Paired, shading='auto')
 
     # Plot the training points
     plt.scatter(X[:, 0], X[:, 1], c=y, edgecolors='k', cmap=plt.cm.Paired)
