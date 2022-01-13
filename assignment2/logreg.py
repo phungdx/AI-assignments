@@ -5,9 +5,10 @@
 
 
 import numpy as np
+import matplotlib.pyplot as plt
 class LogisticRegression:
 
-    def __init__(self, alpha = 0.01, regLambda=0.01, epsilon=0.0001, maxNumIters = 10000):
+    def __init__(self, alpha = 0.1, regLambda=0.001, epsilon=0.0001, maxNumIters = 10000):
         '''
         Constructor
         '''
@@ -28,10 +29,10 @@ class LogisticRegression:
         Returns:
             a scalar value of the cost  ** make certain you're not returning a 1 x 1 matrix! **
         '''
-        d = X.shape[1]
+        n,d = X.shape
         h = self.sigmoid(X.dot(theta))
-        cost = -(y*np.log(h) + (1-y)*np.log(1-h)) + regLambda/2 * np.sum(theta**2)
-        return cost[0]
+        cost = -np.mean((y*np.log(h) + (1-y)*np.log(1-h))) + regLambda/2 * np.linalg.norm(theta[1:,0]) ** 2
+        return cost
 
     
     
@@ -47,8 +48,8 @@ class LogisticRegression:
         '''
         h = self.sigmoid(X.dot(theta))
         dl_wrt_theta = np.zeros((theta.shape))
-        dl_wrt_theta = 1/len(X) * X.T.dot(h-y) + regLambda*theta
-        dl_wrt_theta[0,0] = 1/len(X) * np.sum(h-y)
+        dl_wrt_theta = 1/len(X)*X.T.dot(h-y) + regLambda*theta
+        dl_wrt_theta[0,0] = 1/len(X)*np.sum(h-y)
 
         return dl_wrt_theta
     
@@ -63,6 +64,7 @@ class LogisticRegression:
         '''
         n,d = X.shape
         X = np.c_[np.ones((n,1)), X]
+
         self.theta = np.random.randn(d+1,1)
         self.cost = []
 
@@ -86,11 +88,17 @@ class LogisticRegression:
         n,d = X.shape
         X = np.c_[np.ones((n,1)), X]
         predict = self.sigmoid(X.dot(self.theta))
-        predict[predict>=0.5] = 1
-        predict[predict<0.5] = 0
-        return predict
+        return np.round(predict)
 
 
 
     def sigmoid(self, Z):
-        return 1/(1+np.exp(-Z))
+        return 1.0/(1+np.exp(-Z))
+
+
+    def plot_loss(self):
+        plt.plot(self.cost)
+        plt.title('Loss log')
+        plt.xlabel('Epoch')
+        plt.ylabel('Loss')
+        plt.show()

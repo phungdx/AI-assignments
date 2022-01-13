@@ -30,6 +30,7 @@ if __name__ == "__main__":
     # train logistic regression
     logregModel = LogisticRegression()
     logregModel.fit(X,y)
+    logregModel.plot_loss()
     
     # reload the data for 2D plotting purposes
     data = loadtxt(filename, delimiter=',')
@@ -68,3 +69,4 @@ if __name__ == "__main__":
     plt.yticks(())
     
     plt.show()
+
