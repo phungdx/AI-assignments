@@ -55,14 +55,14 @@ predictions = predictions.reshape(xx.shape)
 # plot my results
 plt.subplot(1, 2, 1)
 plt.pcolormesh(xx, yy, myPredictions, cmap=plt.cm.Paired,shading='auto')
-plt.scatter(X[:, 0], X[:, 1], c=Y, cmap=plt.cm.coolwarm) # Plot the training points
+plt.scatter(X[:, 0], X[:, 1], c=Y, cmap=plt.cm.Paired) # Plot the training points
 plt.title("SVM with My Custom Polynomial Kernel (degree = "+str(_polyDegree) + ", C = "+str(C)+")")
 plt.axis('tight')
 
 # plot built-in results
 plt.subplot(1, 2, 2)
 plt.pcolormesh(xx, yy, predictions, cmap=plt.cm.Paired, shading='auto')
-plt.scatter(X[:, 0], X[:, 1], c=Y, cmap=plt.cm.coolwarm) # Plot the training points
+plt.scatter(X[:, 0], X[:, 1], c=Y, cmap=plt.cm.Paired) # Plot the training points
 plt.title('SVM with Equivalent Scikit_learn Poly Kernel for Comparison')
 plt.axis('tight')
 
