@@ -139,7 +139,7 @@ if __name__ == "__main__":
     '''
     
     # load the data
-    filePath = "univariateData.dat"
+    filePath = "data/univariateData.dat"
     file = open(filePath,'r')
     allData = np.loadtxt(file, delimiter=',')
 

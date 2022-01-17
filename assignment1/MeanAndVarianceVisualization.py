@@ -2,6 +2,9 @@
     TEMPLATE FOR MACHINE LEARNING HOMEWORK
     AUTHOR Eric Eaton, Chris Clingerman
 '''
+import warnings
+import matplotlib.cbook
+warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,15 +32,15 @@ def evaluatePerformance():
     '''
     
     # Load Data
-    filename = 'SPECTF.dat'
+    filename = 'data/SPECTF.dat'
     data = np.loadtxt(filename, delimiter=',')
     X = data[:, 1:]
     y = np.array([data[:, 0]]).T
     n,d = X.shape
     
 
-    trials = 50
-    k_fold = 10
+    trials = 2
+    k_fold = 5
     accuracies_pure = []
     accuracies_stump = []
     accuracies_dt3 = []
@@ -72,7 +75,6 @@ def evaluatePerformance():
                 Xtrain_sample = Xtrain[0:int(percent*n),:]
                 ytrain_sample = ytrain[0:int(percent*n),:]
                 percent += 0.1
-
 
                 # train the decision trees
                 clf_pure = tree.DecisionTreeClassifier()
@@ -125,25 +127,46 @@ def evaluatePerformance():
                 meanDT5Accuracy = np.mean(accuracies_dt5)
                 stddevDT5Accuracy = np.std(accuracies_dt5)
 
-                # plt.plot(iterate,meanDecisionTreeAccuracy,label='pure')
-                # plt.plot(iterate,meanDecisionStumpAccuracy,label='stump')
-                # plt.plot(iterate,meanDT3Accuracy,label='3dt')
-                # plt.plot(iterate,meanDT2Accuracy,label='2dt')
-                # plt.plot(iterate,meanDT5Accuracy,label='5dt')
 
-
+                plt.subplot(3,3,1)
                 plt.errorbar(iterate,meanDecisionTreeAccuracy, yerr=stddevDecisionTreeAccuracy,fmt='.', color="r",elinewidth=1)
-                # plt.errorbar(iterate,meanDecisionStumpAccuracy, yerr=meanDecisionStumpAccuracy,fmt='.', color="g",elinewidth=1)
+                plt.xlabel('Iteration')
+                plt.ylabel('mean average accuracy')
+                plt.ylim([0.5,1])
+                plt.title('pure tree')
+
+                plt.subplot(3,3,2)
+                plt.errorbar(iterate,meanDecisionStumpAccuracy, yerr=stddevDecisionStumpAccuracy,fmt='.', color="g",elinewidth=1)
+                plt.xlabel('Iteration')
+                plt.ylabel('mean average accuracy')
+                plt.ylim([0.5,1])
+                plt.title('stump tree')
+
+                plt.subplot(3,3,3)
                 plt.errorbar(iterate,meanDT3Accuracy, yerr=stddevDT3Accuracy,fmt='.', color="b",elinewidth=1)
+                plt.xlabel('Iteration')
+                plt.ylabel('mean average accuracy')
+                plt.ylim([0.5,1])
+                plt.title('3-depth tree')
+
+                plt.subplot(3,3,4)
                 plt.errorbar(iterate,meanDT2Accuracy, yerr=stddevDT2Accuracy,fmt='.', color="y",elinewidth=1)
+                plt.xlabel('Iteration')
+                plt.ylabel('mean average accuracy')
+                plt.ylim([0.5,1])
+                plt.title('2-depth tree',y=-0.5)
+
+                plt.subplot(3,3,5)
                 plt.errorbar(iterate,meanDT5Accuracy, yerr=stddevDT5Accuracy,fmt='.', color="c",elinewidth=1)
+                plt.xlabel('Iteration')
+                plt.ylabel('mean average accuracy')
+                plt.ylim([0.5,1])
+                plt.title('5-depth tree',y=-0.5)
 
                 iterate+=1
 
 
     # plt.legend()
-    plt.xlabel('Iteration')
-    plt.ylabel('mean average accuracy')
     plt.show()
 
 
