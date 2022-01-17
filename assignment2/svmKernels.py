@@ -46,8 +46,13 @@ def myCosineSimilarityKernel(X1,X2):
         Returns:
             An n1-by-n2 numpy array representing the Kernel (Gram) matrix
     '''
-    # X1=np.array(X1.reshape(1,-1))
-    # X2=np.array(X2.reshape(1,-1))
-    norm = np.linalg.norm(X1) * np.linalg.norm(X2)
-    return np.dot(X1, X2.T)/norm
+    n1 = X1.shape[0]
+    n2 = X2.shape[0]
+    kernel = np.zeros((n1, n2))
+    for i in range(n1):
+        for j in range(n2):
+            norm_xi, norm_xj = (np.linalg.norm(v) for v in (X1[i], X2[j]))
+            XiT_Xj= np.dot(X1[i], X2[j])
+            kernel[i, j] = XiT_Xj/(norm_xi*norm_xj)
+    return kernel
 
