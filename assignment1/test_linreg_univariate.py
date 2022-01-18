@@ -165,7 +165,7 @@ if __name__ == "__main__":
     # Visualize the objective function convex shape
     theta1_vals = np.linspace(-10, 10, 100)
     theta2_vals = np.linspace(-10, 10, 100)
-    visualizeObjective(lr_model,theta1_vals, theta2_vals, X, y)
+    visualizeObjective(lr_model,thetSa1_vals, theta2_vals, X, y)
 
     # Compute the closed form solution in one line of code
     theta_closed_form = np.dot(np.dot(np.linalg.inv(np.dot(X.T, X)), X.T), y)  # TODO:  replace "0" with closed form solution
