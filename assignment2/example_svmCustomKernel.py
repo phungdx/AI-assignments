@@ -55,7 +55,7 @@ Z = Z.reshape(xx.shape)
 plt.pcolormesh(xx, yy, Z, cmap=plt.cm.Paired, shading='auto')
 
 # Plot also the training points
-plt.scatter(X[:, 0], X[:, 1], c=Y, cmap=plt.cm.coolwarm)
+plt.scatter(X[:, 0], X[:, 1], c=Y, cmap=plt.cm.Paired)
 plt.title('3-Class classification using Support Vector Machine with custom kernel')
 plt.axis('tight')
 plt.show()
